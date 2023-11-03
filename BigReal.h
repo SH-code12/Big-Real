@@ -7,8 +7,24 @@
 
 #include "string"
 #include "iostream"
- using namespace std;
+class BigReal {
+public:
+    // Constructors
+    BigReal(string real);
 
+    
+    // Member functions
+    BigReal operator+(const BigReal& other) const;
+    BigReal operator-(const BigReal& other) const;
+    BigReal operator<(const BigReal& other) const;
+    BigReal operator>(const BigReal& other) const;
+    
+private:
+    char sign = '+';
+    string integer, fraction;
+
+
+};
 
 
 
