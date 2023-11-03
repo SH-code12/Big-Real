@@ -18,6 +18,7 @@ public:
     BigReal operator-(const BigReal& other) const;
     BigReal operator<(const BigReal& other) const;
     BigReal operator>(const BigReal& other) const;
+    void print ();
     
 private:
     char sign = '+';
