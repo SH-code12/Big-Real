@@ -141,6 +141,31 @@ bool BigReal::operator>(const BigReal& other) const {
     return false;
 }
 //-----------------------------------------------------------------------------------------------
-
+bool BigReal::operator<(const BigReal& other) const {
+    if (sign == '+' && other.sign == '-') {
+        return false; // This is always greater than a negative number
+    } else if (sign == '-' && other.sign == '+') {
+        return true; // This is always less than a positive number
+    } else if (sign == '+' && other.sign == '+') {
+        // Both are positive, compare integer and fractional parts
+        if (integer != other.integer) {
+            return integer < other.integer;
+        } else if (fraction != other.fraction) {
+            return fraction < other.fraction;
+        } else {
+            return false; // Numbers are equal
+        }
+    } else {
+        // Both are negative, compare integer and fractional parts
+        if (integer != other.integer) {
+            return integer > other.integer;
+        } else if (fraction != other.fraction) {
+            return fraction > other.fraction;
+        } else {
+            return false; // Numbers are equal
+        }
+    }
+}
+//__________________________________________________________________________________________
 
 
