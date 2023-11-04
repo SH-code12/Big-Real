@@ -7,16 +7,19 @@
 
 #include "string"
 #include "iostream"
+
+using namespace std;
+
 class BigReal
 {
 private:
     char sign ;
-    std::string integer, fraction,holeReal;
+    string integer, fraction,holeReal;
     bool isValid = 1 ;
 
 public:
     // Constructors
-    BigReal(std::string real);
+    BigReal(string real);
 
     
     // Member functions
