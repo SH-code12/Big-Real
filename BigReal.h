@@ -18,11 +18,13 @@ public:
     BigReal operator-(const BigReal& other) const;
     BigReal operator<(const BigReal& other) const;
     BigReal operator>(const BigReal& other) const;
+    BigReal operator==(const BigReal& other) const;
+    void valid ();
     void print ();
     
 private:
     char sign = '+';
-    string integer, fraction;
+    string integer, fraction,holeReal;
 
 
 };
