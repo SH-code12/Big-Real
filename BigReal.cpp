@@ -8,29 +8,29 @@
 #include <string>
 using namespace std ;
 
-BigReal::BigReal(string real) {
-    if (regex_match(real, regex("[+-]?\\d*\\.?\\d+"))) {
-        if (real[0] == '-') {
-            sign = '-';
-            real[0] = '0';
-        }
-        size_t dotPos = real.find(".");
-        integer = real.substr(0, dotPos);
-        fraction = real.substr(dotPos + 1, real.size() - dotPos - 1);
+BigReal::BigReal(string real)
+{
+    holeReal = real;
+    isValid = valid(); 
+
+    if (isValid)
+    {
+        sign = real[0];
+        integer = real.substr(1, real.find('.')-1);
+        fraction = real.substr(real.find('.') + 1, real.length());
     }
-    if (integer.size() == 0) {
-        integer = "0";
+    else{
+        cout<<"error not a valid bigreal\n";
     }
-    if (fraction.size() == 0) {
-        fraction = "0";
-    }
+    
 }
+
 //-------------------------------------------------------------------------------------------------------
 
 void BigReal::print() {
     if (sign == '+') {
         char signToRemove = '+';
-        integer.erase(remove(integer.begin(), integer.end(), signToRemove), integer.end());
+        // integer.erase(remove(integer.begin(), integer.end(), signToRemove), integer.end());
         cout << integer << "." << fraction << endl;
     } else {
         cout << sign << integer << "." << fraction << endl;
@@ -167,5 +167,18 @@ bool BigReal::operator<(const BigReal& other) const {
     }
 }
 //__________________________________________________________________________________________
+BigReal& BigReal::operator=(const BigReal& other)
+{
+    if (this == &other) {
+        return *this;
+    }
 
+    sign = other.sign;
+    integer = other.integer;
+    fraction = other.fraction;
+    holeReal = other.holeReal;
+    isValid = other.isValid;
+
+    return *this;
+}
 
