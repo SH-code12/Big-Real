@@ -22,8 +22,8 @@ public:
     // Member functions
     BigReal operator+(const BigReal& other) const;
     BigReal operator-(const BigReal& other) const;
-    BigReal operator<(const BigReal& other) const;
-
+   
+    bool operator<(const BigReal& other) const;
     bool  operator>(const BigReal& other) const;
     bool operator==(const BigReal& other) const;
     void print ();
