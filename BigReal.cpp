@@ -59,7 +59,6 @@ bool BigReal::valid()
     {
         if (valid)
         {
-            cout << "not a valid big real\n";
             return false;
         }
         if (holeReal[i] == '.')
@@ -83,15 +82,16 @@ bool BigReal::valid()
             continue;
         }
     }
-     cout << "valid big real\n";
     return true;
 }
+
 //----------------------------------------------------------------------------------------------------
 
 bool BigReal::operator==(const BigReal& other) const
 {
-    if (!isValid || !other.isValid) {
-        return false; // If either of them is invalid, they are not equal.
+    if (!isValid || !other.isValid)
+    {
+        return false; 
     }
 
     return (sign == other.sign) && (integer == other.integer) && (fraction == other.fraction);
