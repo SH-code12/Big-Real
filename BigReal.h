@@ -9,14 +9,11 @@
 #include "iostream"
 
 using namespace std;
-<<<<<<< HEAD
-=======
 
->>>>>>> abe53fd36022f6ffb6bbcfb59454efcec598d2f3
 class BigReal
 {
 private:
-    char sign ;
+    char sign = '+' ;
     string integer, fraction,holeReal;
     bool isValid  ;
 
@@ -30,17 +27,16 @@ public:
     BigReal(); // for result in operator +
 
     BigReal operator+(const BigReal& other) const;
+
+    BigReal operator=(const BigReal& other);
+
     BigReal operator-(const BigReal& other) const;
-<<<<<<< HEAD
+
+
     bool operator<(const BigReal& other) const;
     bool operator>(const BigReal& other) const;
-=======
-   
-    bool operator<(const BigReal& other) const;
-    bool  operator>(const BigReal& other) const;
->>>>>>> abe53fd36022f6ffb6bbcfb59454efcec598d2f3
+
     bool operator==(const BigReal& other) const;
-    BigReal& operator=(const BigReal& other);
 
     void print ();
     bool valid ();
