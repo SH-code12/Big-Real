@@ -11,19 +11,20 @@ class BigReal
 {
 private:
     char sign ;
-    string integer, fraction,holeReal;
-    bool isValid;
+    std::string integer, fraction,holeReal;
+    bool isValid = 1 ;
 
 public:
     // Constructors
-    BigReal(string real);
+    BigReal(std::string real);
 
     
     // Member functions
     BigReal operator+(const BigReal& other) const;
     BigReal operator-(const BigReal& other) const;
     BigReal operator<(const BigReal& other) const;
-    BigReal operator>(const BigReal& other) const;
+
+    bool  operator>(const BigReal& other) const;
     bool operator==(const BigReal& other) const;
     void print ();
     bool valid ();

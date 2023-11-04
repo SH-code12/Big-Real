@@ -5,6 +5,7 @@
 #include "BigReal.h"
 #include <regex>
 #include <iostream>
+#include <string>
 using namespace std ;
 
 BigReal::BigReal(string real) {
@@ -24,6 +25,7 @@ BigReal::BigReal(string real) {
         fraction = "0";
     }
 }
+//-------------------------------------------------------------------------------------------------------
 
 void BigReal::print() {
     if (sign == '+') {
@@ -34,6 +36,7 @@ void BigReal::print() {
         cout << sign << integer << "." << fraction << endl;
     }
 }
+//------------------------------------------------------------------------------------
 bool BigReal::valid()
 {
     bool onedot = false;
@@ -80,18 +83,64 @@ bool BigReal::valid()
             continue;
         }
     }
-    // cout << "valid big real\n";
+     cout << "valid big real\n";
     return true;
 }
+//----------------------------------------------------------------------------------------------------
 
 bool BigReal::operator==(const BigReal& other) const
 {
-    if (!isValid || !other.isValid)
-    {
+    if (!isValid || !other.isValid) {
         return false; // If either of them is invalid, they are not equal.
     }
 
     return (sign == other.sign) && (integer == other.integer) && (fraction == other.fraction);
 }
+//-------------------------------------------------------------------------------------------------
+// Function to compare  two numbers & find greatr
+bool BigReal::operator>(const BigReal& other) const {
+    // Check the signs
+
+    if (sign == '+' && other.sign == '-') {
+        // + > -
+        return true;
+    }
+    else if (sign == '-' && other.sign == '+') {
+        // -< +
+        return false;
+    }
+
+    // compare numbers of digits of integer part , ex : num1.digit > num2.digit ---> num1 > num2
+
+    if (integer.size() > other.integer.size()) {
+        return true;
+    }
+    else if (integer.size() < other.integer.size()) {
+        return false;
+    }
+
+    // If the integer parts have the same number of digits, compare them digit by digit
+    for (size_t i = 0; i < integer.size(); ++i) {
+        if (integer[i] > other.integer[i]) {
+            return true;
+        }
+        else if (integer[i] < other.integer[i]) {
+            return false;
+        }
+    }
+
+    // If the integer parts are equal, compare the fractional parts digit by digit
+    for (size_t i = 0; i < fraction.size() && i < other.fraction.size(); ++i) {
+        if (fraction[i] > other.fraction[i]) {
+            return true;
+        } else if (fraction[i] < other.fraction[i]) {
+            return false;
+        }
+    }
+    // If all comparisons are equal
+    return false;
+}
+//-----------------------------------------------------------------------------------------------
+
 
 
