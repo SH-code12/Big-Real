@@ -7,7 +7,13 @@
 
 #include "string"
 #include "iostream"
-class BigReal {
+class BigReal
+{
+private:
+    char sign ;
+    string integer, fraction,holeReal;
+    bool isValid;
+
 public:
     // Constructors
     BigReal(string real);
@@ -18,15 +24,9 @@ public:
     BigReal operator-(const BigReal& other) const;
     BigReal operator<(const BigReal& other) const;
     BigReal operator>(const BigReal& other) const;
-    BigReal operator==(const BigReal& other) const;
-    void valid ();
+    bool operator==(const BigReal& other) const;
     void print ();
-    
-private:
-    char sign = '+';
-    string integer, fraction,holeReal;
-
-
+    bool valid ();
 };
 
 
