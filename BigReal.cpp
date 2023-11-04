@@ -34,5 +34,64 @@ void BigReal::print() {
         cout << sign << integer << "." << fraction << endl;
     }
 }
+bool BigReal::valid()
+{
+    bool onedot = false;
+    bool valid = false;
+
+    if (holeReal[0] == '-')
+    {
+        sign = '-';
+    }
+    else if (holeReal[0] == '+')
+    {
+        sign = '+';
+    }
+    else
+    {
+        valid = true;
+    }
+
+    for (int i = 1; i < holeReal.size(); i++)
+    {
+        if (valid)
+        {
+            cout << "not a valid big real\n";
+            return false;
+        }
+        if (holeReal[i] == '.')
+        {
+            if (!onedot)
+            {
+                onedot = true;
+                continue;
+            }
+            valid = true;
+            continue;
+        }
+        else if (!(holeReal[i] >= '0' && holeReal[i] <= '9'))
+        {
+            valid = true;
+            continue;
+        }
+        else if (holeReal[i] == '+' || holeReal[i] == '-')
+        {
+            valid = true;
+            continue;
+        }
+    }
+    // cout << "valid big real\n";
+    return true;
+}
+
+bool BigReal::operator==(const BigReal& other) const
+{
+    if (!isValid || !other.isValid)
+    {
+        return false; // If either of them is invalid, they are not equal.
+    }
+
+    return (sign == other.sign) && (integer == other.integer) && (fraction == other.fraction);
+}
 
 
