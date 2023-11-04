@@ -7,6 +7,8 @@
 
 #include "string"
 #include "iostream"
+
+using namespace std;
 class BigReal
 {
 private:
@@ -20,10 +22,13 @@ public:
 
     
     // Member functions
+
+    BigReal(); // for result in operator +
+
     BigReal operator+(const BigReal& other) const;
     BigReal operator-(const BigReal& other) const;
-    BigReal operator<(const BigReal& other) const;
-    BigReal operator>(const BigReal& other) const;
+    bool operator<(const BigReal& other) const;
+    bool operator>(const BigReal& other) const;
     bool operator==(const BigReal& other) const;
     void print ();
     bool valid ();
