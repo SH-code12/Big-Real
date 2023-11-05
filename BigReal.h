@@ -15,11 +15,7 @@ class BigReal
 private:
     char sign = '+' ;
     string integer, fraction,holeReal;
-<<<<<<< HEAD
-    bool isValid ;
-=======
     bool isValid  ;
->>>>>>> e5fc73a3ca3abda4f84df17081d5d138b319d35c
 
 public:
     // Constructors
