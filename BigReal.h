@@ -25,7 +25,6 @@ public:
     
     // Member functions
 
-    BigReal(); // for result in operator +
 
     BigReal operator+(const BigReal& other) const;
 

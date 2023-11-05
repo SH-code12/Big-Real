@@ -42,6 +42,16 @@ int main() {
     cout << "Sum = ";
     sum.print();
     //--------------------------------------------
+    // test operator +
+    BigReal num3("12.345");
+    BigReal num4("0.007");
+
+    // Perform addition
+    BigReal diff = num1 + num2;
+
+    // Print the result
+    cout << "Diff = ";
+    diff.print();
 
 
     return 0;

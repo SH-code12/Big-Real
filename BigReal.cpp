@@ -7,8 +7,7 @@
 #include <iostream>
 #include <string>
 using namespace std ;
-// to initialize result in operator +
-BigReal::BigReal() : integer("0"), fraction("0"), sign('+') {}
+
 
 BigReal::BigReal(){
     holeReal= "+0.0";
@@ -202,8 +201,20 @@ BigReal BigReal::operator+(const BigReal& other) const {
     if (sign == other.sign) {
         result.sign = sign;
     }
-
-    // Wait operator -
+    else {
+        // If signs are different, perform subtraction accordingly
+        if (sign == '-') {
+            // If this BigReal is negative and other is positive, perform addition
+            BigReal negThis = *this;
+            negThis.sign = '+';
+            return negThis - other;
+        } else {
+            // If this BigReal is positive and other is negative, perform addition
+            BigReal negOther = other;
+            negOther.sign = '+';
+            return *this - negOther;
+        }
+    }
 
     // Determine the maximum length of integer and fractional parts
     int Int_Length = max(integer.size(), other.integer.size());
@@ -268,5 +279,87 @@ BigReal BigReal::operator=(const BigReal& other)
     isValid = other.isValid;
 
     return *this;
+}
+//---------------------------------------------------------------------------------------------------
+
+BigReal BigReal::operator-(const BigReal& other) const {
+    // Initialize the result
+    BigReal result;
+
+
+    // Check if the signs are the same
+    if (sign == other.sign) {
+        result.sign = sign;
+    } else {
+        // If signs are different, perform subtraction accordingly
+        if (sign == '-') {
+            // If this BigReal is negative and other is positive, perform addition
+            BigReal negThis = *this;
+            negThis.sign = '+';
+            return negThis + other;
+        } else {
+
+            // If this BigReal is positive and other is negative, perform addition
+            BigReal negOther = other;
+            negOther.sign = '+';
+            return *this + negOther;
+        }
+    }
+
+    // Perform subtraction for the integer parts
+    int Int_Length = max(integer.size(), other.integer.size());
+    string paddedInt_1 = string(Int_Length - integer.size(), '0') + integer;
+    string paddedInt_2 = string(Int_Length - other.integer.size(), '0') + other.integer;
+
+    string diff_Integer;
+    int borrow = 0;
+    int i = Int_Length - 1;
+    int j = Int_Length - 1;
+
+    while (i >= 0 || j >= 0) {
+        int num1 = (i >= 0) ? (paddedInt_1[i] - '0') : 0;
+        int num2 = (j >= 0) ? (paddedInt_2[j] - '0') : 0;
+        int diff = num1 - num2 - borrow;
+        if (diff < 0) {
+            diff += 10;
+            borrow = 1;
+        } else {
+            borrow = 0;
+        }
+        diff_Integer = to_string(diff) + diff_Integer;
+        i--;
+        j--;
+    }
+
+    result.integer = diff_Integer;
+
+    // Pad zeros to make fractional parts equal in length
+    int Fraction_Length = max(fraction.size(), other.fraction.size()); // Added this line
+    string paddedFracThis = fraction + string(Fraction_Length - fraction.size(), '0');
+    string paddedFracOther = other.fraction + string(Fraction_Length - other.fraction.size(), '0');
+
+    // Perform subtraction of fractional parts
+    string diff_Fraction;
+    borrow = 0;
+    int k = Fraction_Length - 1;
+    int l = Fraction_Length - 1;
+
+    while (k >= 0 || l >= 0) {
+        int num1 = (k >= 0) ? (paddedFracThis[k] - '0') : 0;
+        int num2 = (l >= 0) ? (paddedFracOther[l] - '0') : 0;
+        int diff = num1 - num2 - borrow;
+        if (diff < 0) {
+            diff += 10;
+            borrow = 1;
+        } else {
+            borrow = 0;
+        }
+        diff_Fraction = to_string(diff) + diff_Fraction;
+        k--;
+        l--;
+    }
+    result.fraction = diff_Fraction;
+
+    return result;
 }
 
