@@ -17,6 +17,9 @@ BigReal::BigReal(){
     fraction='0';
 
 }
+
+//-------------------------------------------------------------------------------------------------------
+
 BigReal::BigReal(string real)
 {
     holeReal = real;
@@ -44,6 +47,13 @@ void BigReal::print() {
     } else {
         cout << sign << integer << "." << fraction << endl;
     }
+}
+
+//-------------------------------------------------------------------------------------------------------
+
+ostream& operator << (ostream& out, BigReal num){
+    out<<num.sign<<num.integer<<'.'<<num.fraction;
+    return out;
 }
 
 //------------------------------------------------------------------------------------
