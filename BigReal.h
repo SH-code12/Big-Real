@@ -20,6 +20,7 @@ private:
 public:
     // Constructors
     BigReal(string real);
+    BigReal();
 
     
     // Member functions
