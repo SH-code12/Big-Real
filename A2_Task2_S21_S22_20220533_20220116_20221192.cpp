@@ -82,7 +82,10 @@ int main() {
     }else{
         cout<<" nv not valid big real\n";
     }
-
+//--------------------------------------------
+    // test << oprator
+    BigReal out("+754789.3675865687");
+    cout<<out;
     
     
     
