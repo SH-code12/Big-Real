@@ -10,7 +10,13 @@ using namespace std ;
 // to initialize result in operator +
 BigReal::BigReal() : integer("0"), fraction("0"), sign('+') {}
 
+BigReal::BigReal(){
+    holeReal= "+0.0";
+    sign='+';
+    integer='0';
+    fraction='0';
 
+}
 BigReal::BigReal(string real)
 {
     holeReal = real;
