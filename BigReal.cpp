@@ -87,7 +87,10 @@ bool BigReal::valid()
             continue;
         }
     }
-    return true;
+    if(!valid)
+        return true;
+    else
+        return false;
 }
 
 //----------------------------------------------------------------------------------------------------
