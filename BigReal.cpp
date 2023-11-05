@@ -8,6 +8,7 @@
 #include <string>
 using namespace std ;
 
+<<<<<<< HEAD
 BigReal::BigReal(string real) {
     holeReal = real;
     isValid = valid();
@@ -18,20 +19,62 @@ BigReal::BigReal(string real) {
     } else{
         cout<<"Error,Invalid BigReal number\n";
     }
+=======
+
+BigReal::BigReal(){
+    holeReal= "+0.0";
+    sign='+';
+    integer='0';
+    fraction='0';
+
+>>>>>>> e5fc73a3ca3abda4f84df17081d5d138b319d35c
 }
+
+//-------------------------------------------------------------------------------------------------------
+
+BigReal::BigReal(string real)
+{
+    holeReal = real;
+    isValid = valid(); 
+
+    if (isValid)
+    {
+        sign = real[0];
+        integer = real.substr(1, real.find('.')-1);
+        fraction = real.substr(real.find('.') + 1, real.length());
+    }
+    else{
+        cout<<"error not a valid bigreal\n";
+    }
+    
+}
+
 //-------------------------------------------------------------------------------------------------------
 
 void BigReal::print() {
     if (sign == '+') {
         char signToRemove = '+';
+<<<<<<< HEAD
 //        integer.erase(remove(integer.begin(), integer.end(),
 //                             signToRemove), integer.end());
+=======
+        // integer.erase(remove(integer.begin(), integer.end(), signToRemove), integer.end());
+>>>>>>> e5fc73a3ca3abda4f84df17081d5d138b319d35c
         cout << integer << "." << fraction << endl;
     } else {
         cout << sign << integer << "." << fraction << endl;
     }
 }
+
+//-------------------------------------------------------------------------------------------------------
+
+ostream& operator << (ostream& out, BigReal num){
+    out<<num.sign<<num.integer<<'.'<<num.fraction;
+    return out;
+}
+
 //------------------------------------------------------------------------------------
+
 bool BigReal::valid()
 {
     bool onedot = false;
@@ -77,19 +120,28 @@ bool BigReal::valid()
             continue;
         }
     }
+<<<<<<< HEAD
     return true;
+=======
+    if(!valid)
+        return true;
+    else
+        return false;
+>>>>>>> e5fc73a3ca3abda4f84df17081d5d138b319d35c
 }
+
 //----------------------------------------------------------------------------------------------------
 
 bool BigReal::operator==(const BigReal& other) const
 {
-    if (!isValid || !other.isValid) {
-        return false; // If either of them is invalid, they are not equal.
+    if (!isValid || !other.isValid)
+    {
+        return false; 
     }
 
     return (sign == other.sign) && (integer == other.integer) && (fraction == other.fraction);
 }
-//-------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------
 // Function to compare  two numbers & find greatr
 bool BigReal::operator>(const BigReal& other) const {
     // Check the signs
@@ -159,6 +211,177 @@ bool BigReal::operator<(const BigReal& other) const {
         }
     }
 }
-//__________________________________________________________________________________________
+//-------------------------------------------------------------------------------------------------
+BigReal BigReal::operator+(const BigReal& other) const {
 
+
+
+    // Initialize the result
+    BigReal result;
+
+    // Check if the signs are the same
+    if (sign == other.sign) {
+        result.sign = sign;
+    }
+    else {
+        // If signs are different, perform subtraction accordingly
+        if (sign == '-') {
+            // If this BigReal is negative and other is positive, perform addition
+            BigReal negThis = *this;
+            negThis.sign = '+';
+            return negThis - other;
+        } else {
+            // If this BigReal is positive and other is negative, perform addition
+            BigReal negOther = other;
+            negOther.sign = '+';
+            return *this - negOther;
+        }
+    }
+
+    // Determine the maximum length of integer and fractional parts
+    int Int_Length = max(integer.size(), other.integer.size());
+    int Fraction_Length = max(fraction.size(), other.fraction.size());
+
+    // Pad zeros to make integer parts equal in length
+    string paddedInt_1 = string(Int_Length - integer.size(), '0') + integer;
+    string paddedInt_2 = string(Int_Length - other.integer.size(), '0') + other.integer;
+
+    // Perform addition of integer parts
+    string sum_Integer;
+    int carry = 0;
+    int i = Int_Length - 1;
+    int j = Int_Length - 1;
+
+    while (i >= 0 || j >= 0 || carry) {
+        int num1 = (i >= 0) ? (paddedInt_1[i] - '0') : 0;
+        int num2 = (j >= 0) ? (paddedInt_2[j] - '0') : 0;
+        int sum = num1 + num2 + carry;
+        carry = sum / 10;
+        sum_Integer = to_string(sum % 10) + sum_Integer;
+        i--;
+        j--;
+    }
+    result.integer = sum_Integer;
+
+    // Pad zeros to make fractional parts equal in length
+    string paddedFracThis = fraction + string(Fraction_Length - fraction.size(), '0');
+    string paddedFracOther = other.fraction + string(Fraction_Length - other.fraction.size(), '0');
+
+    // Perform addition of fractional parts
+    string sum_Fraction;
+    carry = 0;
+    int k = Fraction_Length - 1;
+    int l = Fraction_Length - 1;
+
+    while (k >= 0 || l >= 0 || carry) {
+        int num1 = (k >= 0) ? (paddedFracThis[k] - '0') : 0;
+        int num2 = (l >= 0) ? (paddedFracOther[l] - '0') : 0;
+        int sum = num1 + num2 + carry;
+        carry = sum / 10;
+        sum_Fraction = std::to_string(sum % 10) + sum_Fraction;
+        k--;
+        l--;
+    }
+    result.fraction = sum_Fraction;
+
+    return result;
+}
+
+//-----------------------------------------------------------------------------------------------
+BigReal BigReal::operator=(const BigReal& other)
+{
+    if (this == &other) {
+        return *this;
+    }
+
+    sign = other.sign;
+    integer = other.integer;
+    fraction = other.fraction;
+    holeReal = other.holeReal;
+    isValid = other.isValid;
+
+    return *this;
+}
+//---------------------------------------------------------------------------------------------------
+
+BigReal BigReal::operator-(const BigReal& other) const {
+    // Initialize the result
+    BigReal result;
+
+
+    // Check if the signs are the same
+    if (sign == other.sign) {
+        result.sign = sign;
+    } else {
+        // If signs are different, perform subtraction accordingly
+        if (sign == '-') {
+            // If this BigReal is negative and other is positive, perform addition
+            BigReal negThis = *this;
+            negThis.sign = '+';
+            return negThis + other;
+        } else {
+
+            // If this BigReal is positive and other is negative, perform addition
+            BigReal negOther = other;
+            negOther.sign = '+';
+            return *this + negOther;
+        }
+    }
+
+    // Perform subtraction for the integer parts
+    int Int_Length = max(integer.size(), other.integer.size());
+    string paddedInt_1 = string(Int_Length - integer.size(), '0') + integer;
+    string paddedInt_2 = string(Int_Length - other.integer.size(), '0') + other.integer;
+
+    string diff_Integer;
+    int borrow = 0;
+    int i = Int_Length - 1;
+    int j = Int_Length - 1;
+
+    while (i >= 0 || j >= 0) {
+        int num1 = (i >= 0) ? (paddedInt_1[i] - '0') : 0;
+        int num2 = (j >= 0) ? (paddedInt_2[j] - '0') : 0;
+        int diff = num1 - num2 - borrow;
+        if (diff < 0) {
+            diff += 10;
+            borrow = 1;
+        } else {
+            borrow = 0;
+        }
+        diff_Integer = to_string(diff) + diff_Integer;
+        i--;
+        j--;
+    }
+
+    result.integer = diff_Integer;
+
+    // Pad zeros to make fractional parts equal in length
+    int Fraction_Length = max(fraction.size(), other.fraction.size()); // Added this line
+    string paddedFracThis = fraction + string(Fraction_Length - fraction.size(), '0');
+    string paddedFracOther = other.fraction + string(Fraction_Length - other.fraction.size(), '0');
+
+    // Perform subtraction of fractional parts
+    string diff_Fraction;
+    borrow = 0;
+    int k = Fraction_Length - 1;
+    int l = Fraction_Length - 1;
+
+    while (k >= 0 || l >= 0) {
+        int num1 = (k >= 0) ? (paddedFracThis[k] - '0') : 0;
+        int num2 = (l >= 0) ? (paddedFracOther[l] - '0') : 0;
+        int diff = num1 - num2 - borrow;
+        if (diff < 0) {
+            diff += 10;
+            borrow = 1;
+        } else {
+            borrow = 0;
+        }
+        diff_Fraction = to_string(diff) + diff_Fraction;
+        k--;
+        l--;
+    }
+    result.fraction = diff_Fraction;
+
+    return result;
+}
 
