@@ -8,18 +8,6 @@
 #include <string>
 using namespace std ;
 
-<<<<<<< HEAD
-BigReal::BigReal(string real) {
-    holeReal = real;
-    isValid = valid();
-    if(isValid){
-        sign = real[0];
-        integer = real.substr(1,real.find('.'));
-        fraction = real.substr(real.find('.')+1,real.length());
-    } else{
-        cout<<"Error,Invalid BigReal number\n";
-    }
-=======
 
 BigReal::BigReal(){
     holeReal= "+0.0";
@@ -27,7 +15,6 @@ BigReal::BigReal(){
     integer='0';
     fraction='0';
 
->>>>>>> e5fc73a3ca3abda4f84df17081d5d138b319d35c
 }
 
 //-------------------------------------------------------------------------------------------------------
@@ -54,12 +41,7 @@ BigReal::BigReal(string real)
 void BigReal::print() {
     if (sign == '+') {
         char signToRemove = '+';
-<<<<<<< HEAD
-//        integer.erase(remove(integer.begin(), integer.end(),
-//                             signToRemove), integer.end());
-=======
         // integer.erase(remove(integer.begin(), integer.end(), signToRemove), integer.end());
->>>>>>> e5fc73a3ca3abda4f84df17081d5d138b319d35c
         cout << integer << "." << fraction << endl;
     } else {
         cout << sign << integer << "." << fraction << endl;
@@ -120,14 +102,10 @@ bool BigReal::valid()
             continue;
         }
     }
-<<<<<<< HEAD
-    return true;
-=======
     if(!valid)
         return true;
     else
         return false;
->>>>>>> e5fc73a3ca3abda4f84df17081d5d138b319d35c
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -384,4 +362,3 @@ BigReal BigReal::operator-(const BigReal& other) const {
 
     return result;
 }
-
