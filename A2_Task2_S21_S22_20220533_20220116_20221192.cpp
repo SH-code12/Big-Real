@@ -1,6 +1,6 @@
 #include <iostream>
 #include <bits/stdc++.h>
-#include "BigReal.h"
+#include "BigReal.cpp"
 
 using namespace std;
 
