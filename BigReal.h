@@ -39,6 +39,9 @@ public:
 
     bool operator==(const BigReal& other) const;
 
+    friend ostream& operator << (ostream& out, BigReal num);
+
+
     void print ();
     bool valid ();
 };
