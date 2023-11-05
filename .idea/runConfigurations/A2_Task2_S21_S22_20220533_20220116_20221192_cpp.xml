@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="A2_Task2_S21_S22_20220533_20220116_20221192.cpp" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Task_2" TARGET_NAME="A2_Task2_S21_S22_20220533_20220116_20221192.cpp" CONFIG_NAME="A2_Task2_S21_S22_20220533_20220116_20221192.cpp">
+    <option name="sourceFile" value="A2_Task2_S21_S22_20220533_20220116_20221192.cpp" />
+    <method v="2">
+      <option name="com.jetbrains.cidr.cpp.runfile.CppFileBuildBeforeRunTaskProvider$BasicBuildBeforeRunTask" enabled="true" />
+    </method>
+  </configuration>
+</component>

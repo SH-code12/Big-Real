@@ -9,20 +9,14 @@
 using namespace std ;
 
 BigReal::BigReal(string real) {
-    if (regex_match(real, regex("[+-]?\\d*\\.?\\d+"))) {
-        if (real[0] == '-') {
-            sign = '-';
-            real[0] = '0';
-        }
-        size_t dotPos = real.find(".");
-        integer = real.substr(0, dotPos);
-        fraction = real.substr(dotPos + 1, real.size() - dotPos - 1);
-    }
-    if (integer.size() == 0) {
-        integer = "0";
-    }
-    if (fraction.size() == 0) {
-        fraction = "0";
+    holeReal = real;
+    isValid = valid();
+    if(isValid){
+        sign = real[0];
+        integer = real.substr(1,real.find('.'));
+        fraction = real.substr(real.find('.')+1,real.length());
+    } else{
+        cout<<"Error,Invalid BigReal number\n";
     }
 }
 //-------------------------------------------------------------------------------------------------------
@@ -30,7 +24,8 @@ BigReal::BigReal(string real) {
 void BigReal::print() {
     if (sign == '+') {
         char signToRemove = '+';
-        integer.erase(remove(integer.begin(), integer.end(), signToRemove), integer.end());
+//        integer.erase(remove(integer.begin(), integer.end(),
+//                             signToRemove), integer.end());
         cout << integer << "." << fraction << endl;
     } else {
         cout << sign << integer << "." << fraction << endl;
@@ -59,7 +54,6 @@ bool BigReal::valid()
     {
         if (valid)
         {
-            cout << "not a valid big real\n";
             return false;
         }
         if (holeReal[i] == '.')
@@ -83,7 +77,6 @@ bool BigReal::valid()
             continue;
         }
     }
-     cout << "valid big real\n";
     return true;
 }
 //----------------------------------------------------------------------------------------------------

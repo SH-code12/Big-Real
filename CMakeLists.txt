@@ -3,4 +3,4 @@ project(Task_2)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(Task_2 A2_Task2_S21_S22_20220533_20220116_20221192.cpp BigReal.cpp BigReal.h)
+add_executable(Task_2 A2_Task2_S21_S22_20220533_20220116_20221192.cpp BigReal.cpp BigReal.h A2_Task_2/BigReal.h A2_Task_2/BigReal.cpp A2_Task_2/A2_Task2_S21_S22_20220533_20220116_20221192.cpp)
